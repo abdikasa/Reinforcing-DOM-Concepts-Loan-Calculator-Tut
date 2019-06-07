@@ -1,0 +1,6 @@
+/* Hide loading gif and the results section till the calc button is pressed*/
+
+#loading, #results {
+    display: none;
+}
+
