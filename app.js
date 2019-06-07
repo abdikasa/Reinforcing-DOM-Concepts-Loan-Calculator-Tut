@@ -1,8 +1,19 @@
 //Listeners
 
-document.getElementById("loan-form").addEventListener("submit", calculateResults);
+document.getElementById("loan-form").addEventListener("submit", function (e) {
+    //Hide results
+    document.getElementById("results").style.display = "none";
 
-function calculateResults(e) {
+    //show loader
+    document.getElementById("loading").style.display = "block"
+
+    //setTimer
+    setTimeout(calculateResults, 2000);
+
+    e.preventDefault();
+});
+
+function calculateResults() {
 
     //Form Fields DOM
     const amt = document.getElementById("amount");
@@ -11,6 +22,8 @@ function calculateResults(e) {
     const monthlyPMT = document.getElementById("monthly-payment");
     const totalPMT = document.getElementById("total-payment");
     const totalInterest = document.getElementById("total-interest");
+    const results = document.getElementById("results");
+    const loader = document.getElementById("loading");
 
     //Formula
     const principal = parseFloat(amt.value);
@@ -24,16 +37,23 @@ function calculateResults(e) {
         monthlyPMT.value = monthly.toFixed(2);
         totalPMT.value = (monthly * calcPayments).toFixed(2);
         totalInterest.value = ((monthly * calcPayments) - principal).toFixed(2)
+        results.style.display = "block";
+        loader.style.display="none";
+
+
     } else {
         //custom error w/Bootstrap
         showError("Please Carefully Type Your Inputs")
     }
-
-    e.preventDefault();
 }
 
 function clearError() {
     document.querySelector(".alert").remove();
+     //Hide results
+     document.getElementById("results").style.display = "none";
+
+     //hide loader
+     document.getElementById("loading").style.display = "none"
 }
 
 function showError(error) {
